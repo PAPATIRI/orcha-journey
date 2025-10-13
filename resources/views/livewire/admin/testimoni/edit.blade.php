@@ -1,0 +1,87 @@
+<?php
+
+use App\Models\Testimoni;
+use Illuminate\Support\Facades\Storage;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Rule;
+use Livewire\Attributes\Title;
+use Livewire\Volt\Component;
+use Livewire\WithFileUploads;
+use Mary\Traits\Toast;
+
+new
+    #[Layout('components.layouts.admin')]
+    #[Title('Orca Journey | Admin')]
+    class extends Component {
+        use Toast, WithFileUploads;
+
+        public Testimoni $testimonial;
+
+        #[Rule('nullable|image|max:2048')]
+        public $avatar;
+        #[Rule('required')]
+        public string $customerName = '';
+        #[Rule('required')]
+        public string $testimoniCustomer = '';
+        #[Rule('required')]
+        public ?int $rating = 5;
+
+        public $testimonialId = null;
+
+        public function mount($testimonial): void
+        {
+            $this->testimonial = $testimonial;
+            $this->customerName = $testimonial['customer_name'];
+            $this->testimoniCustomer = $testimonial['testimonial'];
+            $this->avatar = $testimonial['avatar'];
+            $this->rating = $testimonial['rating'];
+            $this->testimonialId = $testimonial['id'];
+        }
+        public function save(): void
+        {
+            $data = $this->validate();
+            try {
+                $testimoniData = Testimoni::findOrFail($this->testimonialId);
+                if ($this->avatar) {
+                    if ($testimoniData->avatar) {
+                        $oldPath = str_replace('/storage/', '', $testimoniData->avatar);
+                        Storage::disk('public')->delete($oldPath);
+                    }
+
+                    $url = $this->avatar->store('testimoni', 'public');
+                    $data['avatar'] = "/storage/$url";
+                }
+
+                $testimoniData->update($data);
+                $this->success('berhasil edit data testimoni', redirectTo: '/admin/testimoni');
+            } catch (Exception $e) {
+                $this->error('gagal edit data testimoni');
+            }
+        }
+    }; ?>
+
+<div class="mt-10">
+    <x-mary-header title="Edit Testimoni Pelanggan" separator progress-indicator>
+        <x-slot:actions>
+            <x-mary-button label="Kembali" link="/admin/testimoni" responsive icon="o-arrow-left" class="btn-sm btn-soft btn-primary"></x-button>
+        </x-slot:actions>
+    </x-mary-header>
+    <div class="grid gap-5 lg:grid-cols-2">
+        <div>
+            <x-mary-form wire:submit="save">
+                <x-mary-file label="Avatar" wire:model="avatar" accept="image/png, image/jpg, image/jpeg">
+                    <img wire:model="avatar" class="h-36 rounded-lg shadow-sm" src="{{$testimonial->avatar ?? '/orca-logo.jpg'}}" alt="">
+                </x-mary-file>
+                <x-mary-input label="Nama" wire:model="customerName" />
+                <x-mary-textarea label="Testimoni" wire:model="testimoniCustomer" rows="5" />
+                <p class="text-sm text-slate-900 font-normal">Rating</p>
+                <x-mary-rating wire:model="rating" class="bg-warning" total="5" />
+
+                <x-slot:actions>
+                    <x-mary-button label="Simpan Perubahan" type="submit" spinner="save" class="btn-primary" />
+                </x-slot:actions>
+            </x-mary-form>
+        </div>
+        <div></div>
+    </div>
+</div>
