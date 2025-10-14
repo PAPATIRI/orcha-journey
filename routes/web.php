@@ -8,7 +8,7 @@ use Livewire\Volt\Volt;
 Volt::route('/', 'public.homepage')->name('home');
 
 Route::middleware(['auth'])->group(function () {
-    Volt::route('/admin/dashboard', 'admin.dashboard');
+    Volt::route('/admin/dashboard', 'admin.dashboard')->name('dashboard');
     Volt::route('/admin/testimoni', 'admin.testimoni.index');
     Volt::route('/admin/testimoni/create', 'admin.testimoni.create');
     Volt::route('/admin/testimoni/{testimonial}/edit', 'admin.testimoni.edit');
