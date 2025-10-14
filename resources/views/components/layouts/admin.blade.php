@@ -42,7 +42,8 @@
             <x-mary-menu activate-by-route>
                 <x-mary-menu-item title="Home" icon="o-sparkles" link="/admin/dashboard" />
                 <x-mary-menu-item title="Testimoni" icon="o-chat-bubble-left-right" link="/admin/testimoni" />
-                <x-mary-menu-item title="Promo" icon="o-tag" link="/admin/dashboard" />
+                <x-mary-menu-item title="Partner" icon="o-user-group" link="/admin/partner" />
+                <x-mary-menu-item title="Promo" icon="o-cube" link="/admin/dashboard" />
 
                 <x-mary-menu-sub title="Settings" icon="o-cog-6-tooth">
                     <x-mary-menu-item title="Wifi" icon="o-wifi" link="####" />

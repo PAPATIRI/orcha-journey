@@ -12,7 +12,7 @@ use Mary\Traits\Toast;
 
 new
     #[Layout('components.layouts.admin')]
-    #[Title('Orca Journey | Admin')]
+    #[Title('Admin | Testimoni')]
     class extends Component {
         use WithPagination, Toast;
         public $search = '';
