@@ -7,9 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ isset($title) ? $title : config('app.name') }}</title>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css" />
-    <script src="https://cdn.tiny.cloud/1/iy2twr7sv5cejwaa6j72io1kmbkxcw8s9ahmwdno6l3p2irg/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/robsontenorio/mary@0.44.2/libs/currency/currency.js"></script>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -43,7 +41,7 @@
                 <x-mary-menu-item title="Home" icon="o-sparkles" link="/admin/dashboard" />
                 <x-mary-menu-item title="Testimoni" icon="o-chat-bubble-left-right" link="/admin/testimoni" />
                 <x-mary-menu-item title="Partner" icon="o-user-group" link="/admin/partner" />
-                <x-mary-menu-item title="Promo" icon="o-cube" link="/admin/dashboard" />
+                <x-mary-menu-item title="Bundling Traveling" icon="o-cube" link="/admin/travel-package" />
 
                 <x-mary-menu-sub title="Settings" icon="o-cog-6-tooth">
                     <x-mary-menu-item title="Wifi" icon="o-wifi" link="####" />

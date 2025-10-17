@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             TestimonialSeeder::class,
-            PartnerSeeder::class
+            PartnerSeeder::class,
+            TravelPackageSeeder::class,
         ]);
     }
 }

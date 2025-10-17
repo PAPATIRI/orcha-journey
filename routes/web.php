@@ -15,6 +15,11 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('/admin/testimoni/{testimonial}/edit', 'admin.testimoni.edit');
     // partner route
     Volt::route('/admin/partner', 'admin.partner.index');
+    // bundling route
+    Volt::route('/admin/travel-package', 'admin.travel-package.index');
+    Volt::route('/admin/travel-package/create', 'admin.travel-package.create');
+    Volt::route('/admin/travel-package/{package}', 'admin.travel-package.detail');
+    Volt::route('/admin/travel-package/{package}/edit', 'admin.travel-package.edit');
 
     Route::redirect('settings', 'settings/profile');
 
