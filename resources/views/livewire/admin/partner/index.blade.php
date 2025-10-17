@@ -78,12 +78,19 @@ new #[Layout('components.layouts.admin')] #[Title('Admin | Partner')] class exte
         $this->isEdit = false;
         $this->showModal = true;
     }
+    public function openDeleteModal(Partner $partner)
+    {
+        $this->showDeleteModal = true;
+        $this->partnerName = $partner->partner_name;
+        $this->partnerId = $partner->id;
+    }
 
     public function closeModal(): void
     {
         $this->resetForm();
         $this->partnerId = null;
         $this->showModal = false;
+        $this->showDeleteModal = false;
     }
 
     public function edit(Partner $partner): void
@@ -106,12 +113,17 @@ new #[Layout('components.layouts.admin')] #[Title('Admin | Partner')] class exte
 
     public function delete(Partner $partner): void
     {
-        if ($partner->foto) {
-            $path = str_replace('/storage/', '', $partner->foto);
-            Storage::disk('public')->delete($path);
+        try {
+            if ($partner->foto) {
+                $path = str_replace('/storage/', '', $partner->foto);
+                Storage::disk('public')->delete($path);
+            }
+            $partner->delete();
+            $this->warning("$partner->partner_name berhasil di hapus", position: 'toast-bottom');
+            $this->closeModal();
+        } catch (Exception $e) {
+            $this->error('gagal menghapus data');
         }
-        $partner->delete();
-        $this->warning("$partner->partner_name berhasil di hapus", position: 'toast-bottom');
     }
 
     // method untuk kebutuhan menampilkan list data
@@ -135,7 +147,7 @@ new #[Layout('components.layouts.admin')] #[Title('Admin | Partner')] class exte
 }; ?>
 
 <div class="mt-10">
-    <x-mary-header title="Partner Usaha" separator progress-indicator>
+    <x-mary-header title="Partner Usaha" no-separator progress-indicator>
         <x-slot:middle class="!justify-end">
             <x-mary-input placeholder="cari nama partner..." wire:model.live.debounce="search" clearable
                 icon="o-magnifying-glass" />
@@ -148,14 +160,18 @@ new #[Layout('components.layouts.admin')] #[Title('Admin | Partner')] class exte
     <x-mary-card shadow>
         <x-mary-table :headers="$headers" :rows="$partners" :sort-by="$sortBy" with-pagination>
             @scope('cell_foto', $partner)
-                <x-mary-avatar image="{{ $partner->foto ?? '/orca-logo.jpg' }}" />
+            @if($partner->foto)
+            <x-mary-avatar image="{{ $partner->foto ?? '/orca-logo.jpg' }}" />
+            @else
+            <x-heroicon-o-user-circle class="text-slate-700 h-7 w-7" />
+            @endif
             @endscope
 
             @scope('actions', $partner)
-                <x-mary-button icon="o-pencil-square" wire:click="edit({{ $partner['id'] }})" spinner
-                    class="btn-ghost btn-sm text-slate-700" />
-                <x-mary-button icon="o-trash" wire:click="delete({{ $partner['id'] }})" wire:confirm="are you sure?" spinner
-                    class="btn-ghost btn-sm text-error" />
+            <x-mary-button icon="o-pencil-square" wire:click="edit({{ $partner['id'] }})" spinner="edit()"
+                class="btn-ghost btn-sm text-slate-700" />
+            <x-mary-button icon="o-trash" wire:click="openDeleteModal({{ $partner['id'] }})" spinner="openDeleteModal()"
+                class="btn-ghost btn-sm text-error" />
             @endscope
 
             <x-slot:empty>
@@ -170,11 +186,11 @@ new #[Layout('components.layouts.admin')] #[Title('Admin | Partner')] class exte
 
     <!-- modal confirm delete -->
     <x-mary-modal wire:model='showDeleteModal' title="Hapus Data">
-        <p>yakin ingin menghapus data {{ $partnerName }}</p>
+        <p>yakin ingin menghapus data <strong>{{ $partnerName }}</strong></p>
 
         <x-slot:actions>
             <x-mary-button label="Batal" @click="$wire.closeModal()" spinner="closeModal" />
-            <x-mary-button label="{{ $isEdit ? 'Simpan Perubahan' : 'Simpan Data' }}" type="submit" class="btn-primary"
+            <x-mary-button label="Ya Hapus" wire:click="delete({{$partnerId}})" class="btn-primary"
                 spinner="save" />
         </x-slot:actions>
     </x-mary-modal>
@@ -186,11 +202,11 @@ new #[Layout('components.layouts.admin')] #[Title('Admin | Partner')] class exte
             <x-mary-file label="Logo Partner" wire:model="partnerLogo" accept="image/png, image/jpg, image/jpeg">
             </x-mary-file>
             @if ($partnerLogo)
-                <img class="h-36 rounded-lg shadow-sm" src="{{ $partnerLogo->temporaryUrl() }}" alt="">
+            <img class="h-36 rounded-lg shadow-sm" src="{{ $partnerLogo->temporaryUrl() }}" alt="">
             @elseif($existingLogo)
-                <img class="h-36 rounded-lg shadow-sm" src="{{ $existingLogo }}" alt="">
+            <img class="h-36 rounded-lg shadow-sm" src="{{ $existingLogo }}" alt="">
             @else
-                <img class="h-36 rounded-lg shadow-sm" src="/orca-logo.jpg" alt="">
+            <x-heroicon-o-user-circle class="text-slate-700 h-24 w-24" />
             @endif
 
             <x-slot:actions>

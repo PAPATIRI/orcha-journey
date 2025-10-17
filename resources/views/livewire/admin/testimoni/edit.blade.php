@@ -61,16 +61,20 @@ new
     }; ?>
 
 <div class="mt-10">
-    <x-mary-header title="Edit Testimoni Pelanggan" separator progress-indicator>
+    <x-mary-header title="Edit Testimoni Pelanggan" no-separator progress-indicator>
         <x-slot:actions>
             <x-mary-button label="Kembali" link="/admin/testimoni" responsive icon="o-arrow-left" class="btn-sm btn-soft btn-primary"></x-button>
         </x-slot:actions>
     </x-mary-header>
     <div class="grid gap-5 lg:grid-cols-2">
         <div>
-            <x-mary-form wire:submit="save">
+            <x-mary-form wire:submit="save" no-separator>
                 <x-mary-file label="Avatar" wire:model="avatar" accept="image/png, image/jpg, image/jpeg">
+                    @if($testimonial->avatar)
                     <img wire:model="avatar" class="h-36 rounded-lg shadow-sm" src="{{$testimonial->avatar ?? '/orca-logo.jpg'}}" alt="">
+                    @else
+                    <x-heroicon-o-user-circle class="text-slate-700 h-24 w-24 hover:bg-slate-200 rounded-lg" />
+                    @endif
                 </x-mary-file>
                 <x-mary-input label="Nama" wire:model="customerName" />
                 <x-mary-textarea label="Testimoni" wire:model="testimoniCustomer" rows="5" />
