@@ -40,8 +40,8 @@ new #[Layout('components.layouts.empty')] class extends Component {
 
 <div class="container mx-auto">
     <div class="flex flex-col gap-6 max-w-lg mx-auto my-auto pt-32">
-        <div class="h-40 w-40 bg-gray-300 overflow-hidden self-center">
-            <img src="{{asset('/orca-logo.jpg')}}" class="object-cover h-full w-full" alt="">
+        <div class="h-40 w-40 overflow-hidden self-center">
+            <img src="{{asset('/orcha-logo.png')}}" class="object-cover h-full w-full" alt="">
         </div>
         <x-mary-form method="POST" wire:submit="register" class="flex flex-col gap-6">
             <!-- Name -->

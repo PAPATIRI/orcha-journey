@@ -39,3 +39,15 @@
 .mary-table-pagination button {
     @apply cursor-pointer;
 }
+
+html {
+    scroll-behavior: smooth;
+}
+
+.main-text {
+    font-family: "Raleway", sans-serif;
+}
+
+.highlight {
+    font-family: "Dancing Script", cursive;
+}

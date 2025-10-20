@@ -153,7 +153,7 @@ new #[Layout('components.layouts.admin')] #[Title('Admin | Partner')] class exte
                 icon="o-magnifying-glass" />
         </x-slot:middle>
         <x-slot:actions>
-            <x-mary-button label="Tambah Partner" wire:click="openModal" responsive icon="o-plus"
+            <x-mary-button spinner="openModal" label="Tambah Partner" wire:click="openModal" responsive icon="o-plus"
                 class="btn-primary"></x-button>
         </x-slot:actions>
     </x-mary-header>
@@ -161,16 +161,16 @@ new #[Layout('components.layouts.admin')] #[Title('Admin | Partner')] class exte
         <x-mary-table :headers="$headers" :rows="$partners" :sort-by="$sortBy" with-pagination>
             @scope('cell_foto', $partner)
             @if($partner->foto)
-            <x-mary-avatar image="{{ $partner->foto ?? '/orca-logo.jpg' }}" />
+            <x-mary-avatar image="{{ $partner->foto}}" />
             @else
             <x-heroicon-o-user-circle class="text-slate-700 h-7 w-7" />
             @endif
             @endscope
 
             @scope('actions', $partner)
-            <x-mary-button icon="o-pencil-square" wire:click="edit({{ $partner['id'] }})" spinner="edit()"
+            <x-mary-button icon="o-pencil-square" wire:click="edit({{ $partner['id'] }})" spinner="edit({{$partner['id']}})"
                 class="btn-ghost btn-sm text-slate-700" />
-            <x-mary-button icon="o-trash" wire:click="openDeleteModal({{ $partner['id'] }})" spinner="openDeleteModal()"
+            <x-mary-button icon="o-trash" wire:click="openDeleteModal({{ $partner['id'] }})" spinner="openDeleteModal({{$partner['id']}})"
                 class="btn-ghost btn-sm text-error" />
             @endscope
 
@@ -191,7 +191,7 @@ new #[Layout('components.layouts.admin')] #[Title('Admin | Partner')] class exte
         <x-slot:actions>
             <x-mary-button label="Batal" @click="$wire.closeModal()" spinner="closeModal" />
             <x-mary-button label="Ya Hapus" wire:click="delete({{$partnerId}})" class="btn-primary"
-                spinner="save" />
+                spinner="delete({{$partnerId}})" />
         </x-slot:actions>
     </x-mary-modal>
 

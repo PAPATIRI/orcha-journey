@@ -20,6 +20,8 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('/admin/travel-package/create', 'admin.travel-package.create');
     Volt::route('/admin/travel-package/{package}', 'admin.travel-package.detail');
     Volt::route('/admin/travel-package/{package}/edit', 'admin.travel-package.edit');
+    // route destinasi populer
+    Volt::route('/admin/destinasi-populer', 'admin.destination-populer.index');
 
     Route::redirect('settings', 'settings/profile');
 
