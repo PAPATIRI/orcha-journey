@@ -45,7 +45,7 @@
                 </div>
 
                 <!-- Desktop Menu -->
-                <div class="items-center hidden space-x-5 lg:flex">
+                <div class="items-center hidden space-x-8 lg:flex">
                     <a href="#home"
                         :class="activeSection === 'home' ? 'text-cyan-600' : 'text-slate-700 hover:text-cyan-600'"
                         class="transition">Beranda</a>
@@ -100,7 +100,7 @@
             x-transition:leave="transition ease-in duration-150"
             x-transition:leave-start="opacity-100 transform translate-y-0"
             x-transition:leave-end="opacity-0 transform -translate-y-2" class="bg-white border-t lg:hidden">
-            <div class="px-4 pt-2 pb-4 space-y-2">
+            <div class="px-4 pt-2 pb-4 space-y-2 flex flex-col gap-2">
                 <a href="#home"
                     :class="activeSection === 'home' ? 'text-cyan-600' : 'text-slate-700 hover:text-cyan-600'"
                     class="transition">Beranda</a>
