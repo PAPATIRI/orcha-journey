@@ -23,6 +23,10 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('/admin/travel-package/{package}/edit', 'admin.travel-package.edit');
     // route destinasi populer
     Volt::route('/admin/destinasi-populer', 'admin.destination-populer.index');
+    // route mobil rental
+    Volt::route('/admin/car', 'admin.car.index');
+    Volt::route('/admin/car/create', 'admin.car.create');
+    Volt::route('/admin/car/{car}/edit', 'admin.car.edit');
 
     Route::redirect('settings', 'settings/profile');
 

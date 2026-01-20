@@ -43,6 +43,7 @@
                 <x-mary-menu-item title="Partner" icon="o-user-group" link="/admin/partner" />
                 <x-mary-menu-item title="Bundling Traveling" icon="o-cube" link="/admin/travel-package" />
                 <x-mary-menu-item title="Destinasi Populer" icon="o-map-pin" link="/admin/destinasi-populer" />
+                <x-mary-menu-item title="Sewa Mobil" icon="lucide.car" link="/admin/car" />
 
                 <x-mary-menu-sub title="Settings" icon="o-cog-6-tooth">
                     <x-mary-menu-item title="Wifi" icon="o-wifi" link="####" />

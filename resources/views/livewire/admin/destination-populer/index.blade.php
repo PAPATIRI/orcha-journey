@@ -9,18 +9,24 @@ use Livewire\Volt\Component;
 use Livewire\WithFileUploads;
 use Mary\Traits\Toast;
 
-new #[Layout('components.layouts.admin')] #[Title('Admin | destination')]  class extends Component {
+new #[Layout('components.layouts.admin')] #[Title('Admin | destination')] class extends Component
+{
     use Toast, WithFileUploads;
 
     public $showModal = false;
+
     public $showDeleteModal = false;
+
     public $isEdit = false;
+
     public $destinationId = null;
 
     #[Rule('required|string|max:191')]
     public string $destinationName = '';
+
     #[Rule('nullable|image|max:2048')]
     public $destinationPhoto;
+
     #[Rule('required')]
     public $totalVisitor = 0;
 
@@ -32,6 +38,7 @@ new #[Layout('components.layouts.admin')] #[Title('Admin | destination')]  class
         $this->showModal = true;
         $this->isEdit = false;
     }
+
     public function edit(DestinationPopuler $destination): void
     {
         $this->resetForm();
@@ -42,6 +49,7 @@ new #[Layout('components.layouts.admin')] #[Title('Admin | destination')]  class
         $this->destinationId = $destination->id;
         $this->showModal = true;
     }
+
     public function openDeleteModal(DestinationPopuler $destination): void
     {
         $this->resetForm();
@@ -49,12 +57,14 @@ new #[Layout('components.layouts.admin')] #[Title('Admin | destination')]  class
         $this->destinationName = $destination->destination_name;
         $this->destinationId = $destination->id;
     }
+
     public function closeModal(): void
     {
         $this->resetForm();
         $this->showModal = false;
         $this->showDeleteModal = false;
     }
+
     public function resetForm()
     {
         $this->destinationName = '';
@@ -79,6 +89,7 @@ new #[Layout('components.layouts.admin')] #[Title('Admin | destination')]  class
             $this->error('gagal menghapus data destinasi populer');
         }
     }
+
     public function save(): void
     {
         $this->validate();
@@ -108,7 +119,7 @@ new #[Layout('components.layouts.admin')] #[Title('Admin | destination')]  class
                 DestinationPopuler::create([
                     'destination_name' => $this->destinationName,
                     'total_visitor' => $this->totalVisitor,
-                    'foto' => $this->destinationPhoto
+                    'foto' => $this->destinationPhoto,
                 ]);
                 $this->success('berhasil tambah destinasi');
                 $this->closeModal();
@@ -132,7 +143,7 @@ new #[Layout('components.layouts.admin')] #[Title('Admin | destination')]  class
     {
         return [
             'destinations' => DestinationPopuler::all(),
-            'headers' => $this->headers()
+            'headers' => $this->headers(),
         ];
     }
 }; ?>
