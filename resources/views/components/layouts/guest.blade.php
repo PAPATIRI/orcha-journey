@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&family=Dancing+Script&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/main.css', 'resources/js/app.js'])
 </head>
 
 <body class="main-text overflow-x-hidden antialiased text-gray-900" x-data="{ mobileMenuOpen: false}">

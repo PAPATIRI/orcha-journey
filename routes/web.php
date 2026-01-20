@@ -4,8 +4,9 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
 
-
 Volt::route('/', 'public.homepage')->name('home');
+Volt::route('/home', 'public.home')->name('home.new');
+Volt::route('/home2', 'public.home2')->name('home.2');
 
 Route::middleware(['auth'])->group(function () {
     Volt::route('/admin/dashboard', 'admin.dashboard')->name('dashboard');
@@ -41,4 +42,4 @@ Route::middleware(['auth'])->group(function () {
         ->name('two-factor.show');
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
