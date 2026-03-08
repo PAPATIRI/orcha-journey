@@ -8,9 +8,7 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     libzip-dev \
-    zip \
-    nodejs \
-    npm
+    zip
 
 # Install PHP extensions yang dibutuhkan Laravel
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
@@ -19,9 +17,3 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
-
-# Set npm cache ke tmp directory yang accessible oleh semua user
-ENV NPM_CONFIG_CACHE=/tmp/.npm
-ENV npm_config_cache=/tmp/.npm
-
-USER ${UID}:${GID}
